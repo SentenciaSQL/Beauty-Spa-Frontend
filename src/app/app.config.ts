@@ -1,5 +1,5 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import {provideRouter, withInMemoryScrolling, withViewTransitions} from '@angular/router';
 
 import { routes } from './app.routes';
 import {provideHttpClient, withInterceptors} from '@angular/common/http';
@@ -10,7 +10,14 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
-    provideRouter(routes),
+    provideRouter(
+      routes,
+      withViewTransitions(),
+      withInMemoryScrolling({
+        scrollPositionRestoration: 'top',
+        anchorScrolling: 'enabled',
+      })
+    ),
     provideHttpClient(withInterceptors([tokenInterceptor])),
     { provide: API_BASE_URL, useValue: 'http://localhost:8000/api/v1' }
   ]

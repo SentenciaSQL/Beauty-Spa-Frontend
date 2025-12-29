@@ -2,10 +2,13 @@ import {Component, computed, effect, inject} from '@angular/core';
 import {HomeStore} from '../home.store';
 import {API_BASE_URL} from '../../../../../core/api/api.config';
 import {resolveMediaUrl} from '../../../../../shared/utils/media-url';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-services-section',
-  imports: [],
+  imports: [
+    RouterLink
+  ],
   templateUrl: './services-section.component.html',
   styleUrl: './services-section.component.css',
 })

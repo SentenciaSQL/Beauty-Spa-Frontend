@@ -1,0 +1,105 @@
+<div class="min-h-[calc(100vh-6rem)] flex items-center justify-center p-4 bg-gradient-to-br from-purple-50 to-base-200">
+  <div class="card bg-base-100 shadow-2xl w-full max-w-md border border-base-300">
+    <div class="card-body">
+      <!-- Header con ícono -->
+      <div class="text-center mb-6">
+        <div class="inline-flex items-center justify-center w-16 h-16 bg-purple-100 rounded-full mb-4">
+          <i class="fas fa-spa text-3xl text-purple-600"></i>
+        </div>
+        <h2 class="text-3xl font-bold text-base-content">¡Bienvenido de vuelta!</h2>
+        <p class="text-base-content/70 mt-2">Inicia sesión para gestionar tus citas</p>
+      </div>
+
+      @if (errorMsg()) {
+        <div class="alert alert-error shadow-lg">
+          <i class="fas fa-exclamation-circle"></i>
+          <span>{{ errorMsg() }}</span>
+        </div>
+      }
+
+      <form class="mt-6 space-y-4" [formGroup]="form" (ngSubmit)="onSubmit()">
+        <!-- Email Field -->
+        <label class="form-control w-full float-left">
+          <div class="label">
+            <span class="label-text font-semibold">
+              <i class="fas fa-envelope mr-2 text-purple-600"></i>
+              Correo Electrónico
+            </span>
+          </div>
+          <input
+            class="input input-bordered w-full focus:input-primary focus:border-purple-600 transition-all"
+            type="email"
+            placeholder="tucorreo@ejemplo.com"
+            formControlName="email"
+          />
+          @if (form.controls.email.touched && form.controls.email.invalid) {
+            <div class="label">
+              <span class="label-text-alt text-error mt-[4px]">
+                <i class="fas fa-exclamation-triangle mr-1"></i>
+                Se requiere un correo válido
+              </span>
+            </div>
+          }
+        </label>
+
+        <!-- Password Field -->
+        <label class="form-control w-full float-left">
+          <div class="label">
+            <span class="label-text font-semibold">
+              <i class="fas fa-lock mr-2 text-purple-600"></i>
+              Contraseña
+            </span>
+          </div>
+          <input
+            class="input input-bordered w-full focus:input-primary focus:border-purple-600 transition-all"
+            type="password"
+            placeholder="••••••••"
+            formControlName="password"
+          />
+          @if (form.controls.password.touched && form.controls.password.invalid) {
+            <div class="label">
+              <span class="label-text-alt text-error mt-[4px]">
+                <i class="fas fa-exclamation-triangle mr-1"></i>
+                La contraseña es requerida
+              </span>
+            </div>
+          }
+        </label>
+
+        <!-- Forgot Password Link -->
+        <div class="text-right">
+          <a routerLink="/forgot-password" class="link link-primary text-sm hover:text-purple-700">
+            ¿Olvidaste tu contraseña?
+          </a>
+        </div>
+
+        <!-- Submit Button -->
+        <button
+          class="btn btn-primary w-full bg-purple-600 border-purple-600 hover:bg-purple-700 hover:border-purple-700 text-white shadow-lg mt-6"
+          type="submit"
+          [disabled]="loading() || form.invalid"
+        >
+          @if (loading()) {
+            <span class="loading loading-spinner"></span>
+          } @else {
+            <i class="fas fa-sign-in-alt mr-2"></i>
+          }
+          <span>Iniciar Sesión</span>
+        </button>
+
+        <!-- Divider -->
+        <div class="divider text-sm opacity-60">O</div>
+
+        <!-- Register Link -->
+        <div class="text-center p-4 bg-base-200 rounded-lg">
+          <p class="text-sm text-base-content/80">
+            ¿No tienes una cuenta?
+            <a class="link link-primary font-semibold hover:text-purple-700" routerLink="/register">
+              Regístrate aquí
+            </a>
+          </p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

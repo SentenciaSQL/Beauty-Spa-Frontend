@@ -1,0 +1,66 @@
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Animación de fade para slides */
+.carousel-slide-transition {
+  transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1),
+  transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Efecto Ken Burns - zoom suave en la imagen */
+@keyframes kenBurns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.1);
+  }
+}
+
+/* Animación de contenido */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Smooth transitions para todos los elementos */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Mejora visual de los botones de navegación */
+.btn-circle {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Animación de los indicadores */
+.carousel-indicator {
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+  opacity 0.3s ease;
+}
+
+/* Efecto parallax sutil */
+.parallax-layer {
+  will-change: transform;
+  transform: translateZ(0);
+}

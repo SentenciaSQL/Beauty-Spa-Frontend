@@ -1,0 +1,177 @@
+<!-- Sección de Testimonios -->
+<section id="testimonios" class="py-20 px-4 lg:px-16 bg-gradient-to-b from-base-200 to-base-100 relative overflow-hidden">
+  <!-- Decoración de fondo -->
+  <div class="absolute top-0 left-0 w-96 h-96 bg-stone-200/20 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+  <div class="absolute bottom-0 right-0 w-96 h-96 bg-stone-300/20 rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
+
+  <div class="container mx-auto max-w-7xl relative z-10">
+    <!-- Header -->
+    <div class="text-center mb-16">
+      <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-stone-100 to-stone-200 rounded-2xl mb-6 shadow-lg">
+        <i class="fas fa-quote-left text-4xl text-stone-600"></i>
+      </div>
+      <h2 class="text-5xl lg:text-6xl font-bold mb-4 bg-gradient-to-r from-stone-600 to-stone-800 bg-clip-text text-transparent">
+        Lo Que Dicen Nuestros Clientes
+      </h2>
+      <p class="text-xl text-base-content/70 max-w-3xl mx-auto">
+        La satisfacción de nuestros clientes es nuestra mejor recomendación
+      </p>
+    </div>
+
+    <!-- Carrusel Container -->
+    <div class="relative">
+      <!-- Carrusel con scroll horizontal -->
+      <div
+        #carouselContainer
+        class="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-8 px-4 -mx-4 hide-scrollbar">
+
+        @for (testimonial of testimonials(); track testimonial.id; let i = $index) {
+          <div class="snap-center flex-shrink-0 w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]">
+
+            <div class="card bg-base-100 shadow-2xl hover:shadow-stone-200/50 transition-all duration-300 h-full border border-base-300 group hover:-translate-y-2">
+              <div class="card-body p-6 lg:p-8">
+
+                <!-- Rating y fecha -->
+                <div class="flex items-center justify-between mb-4">
+                  <!-- Rating -->
+                  <div class="flex gap-1">
+                    @for (star of [1,2,3,4,5]; track star) {
+                      @if (star <= testimonial.rating) {
+                        <i class="fas fa-star text-yellow-400 text-lg"></i>
+                      } @else {
+                        <i class="far fa-star text-base-content/30 text-lg"></i>
+                      }
+                    }
+                  </div>
+
+                  <!-- Fecha -->
+                  <div class="flex items-center gap-2 text-sm text-base-content/60">
+                    <i class="fas fa-calendar-alt text-stone-600"></i>
+                    <span>{{ formatDate(testimonial.testimonial_date) }}</span>
+                  </div>
+                </div>
+
+                <!-- Quote icon decorativo -->
+                <div class="relative">
+                  <i class="fas fa-quote-left text-6xl text-stone-100 absolute -top-4 -left-2"></i>
+                </div>
+
+                <!-- Mensaje -->
+                <div class="relative z-10 mb-6">
+                  <p class="text-base-content/80 leading-relaxed italic line-clamp-4">
+                    "{{ testimonial.message }}"
+                  </p>
+                </div>
+
+                <!-- Divider -->
+                <div class="divider my-2"></div>
+
+                <!-- Cliente -->
+                <div class="flex items-center gap-4">
+                  <!-- Avatar -->
+                  <div class="avatar">
+                    <div class="w-16 h-16 rounded-full ring ring-stone-600 ring-offset-base-100 ring-offset-2">
+                      @if (testimonial.image_url) {
+                        <img [src]="imgUrl(testimonial.image_url)" [alt]="testimonial.name" />
+                      } @else {
+                        <div class="bg-gradient-to-br from-stone-400 to-stone-600 flex items-center justify-center">
+                          <span class="text-2xl font-bold text-white">
+                            {{ getInitials(testimonial.name) }}
+                          </span>
+                        </div>
+                      }
+                    </div>
+                  </div>
+
+                  <!-- Info del cliente -->
+                  <div class="flex-1">
+                    <h4 class="font-bold text-lg text-base-content">
+                      {{ testimonial.name }}
+                    </h4>
+<!--                    @if (testimonial.service_name) {-->
+<!--                      <p class="text-sm text-base-content/60 flex items-center gap-2">-->
+<!--                        <i class="fas fa-spa text-stone-600 text-xs"></i>-->
+<!--                        {{ testimonial.service_name }}-->
+<!--                      </p>-->
+<!--                    }-->
+                  </div>
+
+                  <!-- Badge verificado -->
+                  <div class="tooltip" data-tip="Cliente verificado">
+                    <div class="w-8 h-8 bg-stone-100 rounded-full flex items-center justify-center">
+                      <i class="fas fa-check-circle text-stone-600"></i>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- Botones de navegación flotantes -->
+      <div class="hidden lg:block">
+        <button
+          (click)="previousTestimonial()"
+          class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 btn btn-circle bg-white hover:bg-stone-600 hover:text-white border border-base-300 shadow-xl z-10 transition-all duration-300">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <button
+          (click)="nextTestimonial()"
+          class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 btn btn-circle bg-white hover:bg-stone-600 hover:text-white border border-base-300 shadow-xl z-10 transition-all duration-300">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Indicadores -->
+    <div class="flex justify-center gap-3 mt-8">
+      @for (testimonial of testimonials(); track testimonial.id; let i = $index) {
+        <button
+          type="button"
+          (click)="goToTestimonial(i)"
+          class="h-3 rounded-full transition-all duration-300"
+          [class.w-8]="currentTestimonial() === i"
+          [class.w-3]="currentTestimonial() !== i"
+          [class.bg-stone-600]="currentTestimonial() === i"
+          [class.bg-base-content]="currentTestimonial() !== i"
+          [class.opacity-100]="currentTestimonial() === i"
+          [class.opacity-30]="currentTestimonial() !== i">
+        </button>
+      }
+    </div>
+
+    <!-- Botones de navegación móvil -->
+    <div class="flex justify-center gap-4 mt-8 lg:hidden">
+      <button
+        (click)="previousTestimonial()"
+        class="btn btn-circle bg-white hover:bg-stone-600 hover:text-white border border-base-300 shadow-lg transition-all duration-300">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      <button
+        (click)="nextTestimonial()"
+        class="btn btn-circle bg-white hover:bg-stone-600 hover:text-white border border-base-300 shadow-lg transition-all duration-300">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+
+    <!-- CTA -->
+    <div class="text-center mt-16">
+      <div class="card bg-gradient-to-r from-stone-600 to-stone-800 text-white shadow-2xl max-w-3xl mx-auto">
+        <div class="card-body p-8 lg:p-12">
+          <h3 class="text-3xl font-bold mb-4">
+            ¿Listo para tu transformación?
+          </h3>
+          <p class="text-lg text-stone-100 mb-6">
+            Únete a cientos de clientes satisfechos y descubre la mejor versión de ti
+          </p>
+          <a href="/book" class="btn btn-lg bg-white text-stone-600 hover:bg-stone-50 border-0 shadow-xl hover:shadow-2xl transition-all duration-300">
+            <i class="fas fa-calendar-check mr-2"></i>
+            Reservar Mi Cita Ahora
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

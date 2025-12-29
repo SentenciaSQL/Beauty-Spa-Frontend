@@ -1,0 +1,108 @@
+<google-map
+  height="400px"
+  width="100%"
+  [zoom]="zoom"
+  [center]="center">
+
+  <map-info-window #infoWindow>
+    <!-- Cambia w-80 por w-96 o max-w-md -->
+    <div class="card w-96 bg-base-100 shadow-2xl border border-base-300">
+      <!-- Header con gradiente -->
+      <div class="bg-gradient-to-r from-purple-600 to-purple-800 p-4 rounded-t-2xl">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg">
+            <i class="fas fa-spa text-purple-600 text-2xl"></i>
+          </div>
+          <div class="text-white">
+            <h2 class="font-bold text-lg">{{ settings.appName() }}</h2>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Body -->
+      <div class="card-body p-5 gap-3">
+        <!-- Ubicación -->
+        <div class="flex items-start gap-3">
+          <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
+            <i class="fas fa-map-marker-alt text-purple-600"></i>
+          </div>
+          <div>
+            <p class="font-semibold text-sm">Ubicación</p>
+            <p class="text-sm text-base-content/70">
+              {{ settings.address_text() }}
+            </p>
+          </div>
+        </div>
+
+        <!-- Horarios -->
+        <div class="flex items-start gap-3">
+          <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
+            <i class="fas fa-clock text-purple-600"></i>
+          </div>
+          <div>
+            <p class="font-semibold text-sm">Horario</p>
+            <p class="text-sm text-base-content/70">
+              Lun - Sáb: 9:00 AM - 7:00 PM
+            </p>
+          </div>
+        </div>
+
+        <!-- Teléfono -->
+        <div class="flex items-start gap-3">
+          <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
+            <i class="fas fa-phone text-purple-600"></i>
+          </div>
+          <div>
+            <p class="font-semibold text-sm">Teléfono</p>
+            <a href="tel:+1{{ settings.contactPhone() }}" class="text-sm text-purple-600 hover:underline">
+              {{ formattedNumber() }}
+            </a>
+          </div>
+        </div>
+
+        <div class="divider my-1"></div>
+
+        <!-- Badges de servicios -->
+        <div class="flex flex-wrap gap-2">
+          <div class="badge badge-sm bg-purple-100 text-purple-700 border-0">
+            <i class="fas fa-spa text-xs mr-1"></i>
+            Masajes
+          </div>
+          <div class="badge badge-sm bg-purple-100 text-purple-700 border-0">
+            <i class="fas fa-cut text-xs mr-1"></i>
+            Estética
+          </div>
+          <div class="badge badge-sm bg-purple-100 text-purple-700 border-0">
+            <i class="fas fa-hand-sparkles text-xs mr-1"></i>
+            Uñas
+          </div>
+        </div>
+
+        <!-- Botones de acción -->
+        <div class="card-actions gap-2 mt-2">
+          <button
+            class="btn btn-primary bg-purple-600 border-purple-600 hover:bg-purple-700 btn-sm flex-1"
+            (click)="goToBooking()">
+            <i class="fas fa-calendar-check mr-1"></i>
+            Reservar Cita
+          </button>
+          <a
+            href="https://maps.google.com/?q=18.4861,-69.9312"
+            target="_blank"
+            class="btn btn-outline btn-purple-600 hover:bg-purple-600 hover:text-white btn-sm flex-1">
+            <i class="fas fa-directions mr-1"></i>
+            Cómo Llegar
+          </a>
+        </div>
+      </div>
+    </div>
+  </map-info-window>
+
+  <map-marker
+    #marker="mapMarker"
+    [position]="center"
+    (mapClick)="openInfo(marker)">
+  </map-marker>
+
+</google-map>

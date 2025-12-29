@@ -1,0 +1,182 @@
+<div class="min-h-[calc(100vh-6rem)] flex items-center justify-center p-4 bg-gradient-to-br from-purple-50 to-base-200">
+  <div class="card bg-base-100 shadow-2xl w-full max-w-md border border-base-300">
+    <div class="card-body">
+      <!-- Header con ícono -->
+      <div class="text-center mb-6">
+        <div class="inline-flex items-center justify-center w-16 h-16 bg-purple-100 rounded-full mb-4">
+          <i class="fas fa-user-plus text-3xl text-purple-600"></i>
+        </div>
+        <h2 class="text-3xl font-bold text-base-content">Crea tu cuenta</h2>
+        <p class="text-base-content/70 mt-2">Regístrate para reservar tus citas</p>
+      </div>
+
+      @if (errorMsg()) {
+        <div class="alert alert-error shadow-lg">
+          <i class="fas fa-exclamation-circle"></i>
+          <span>{{ errorMsg() }}</span>
+        </div>
+      }
+
+      <form class="mt-6 space-y-4" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+        <!-- Nombre y Apellido -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <label class="form-control w-full float-left">
+            <div class="label">
+              <span class="label-text font-semibold">
+                <i class="fas fa-user mr-2 text-purple-600"></i>
+                Nombre
+              </span>
+            </div>
+            <input
+              class="input input-bordered w-full focus:input-primary focus:border-purple-600 transition-all placeholder:opacity-50"
+              type="text"
+              placeholder="Introduzca su nombre"
+              formControlName="first_name"
+            />
+            @if (form.controls.first_name.touched && form.controls.first_name.invalid) {
+              <div class="label">
+                <span class="label-text-alt text-error mt-[4px]">
+                  <i class="fas fa-exclamation-triangle mr-1"></i>
+                  Mínimo 2 caracteres
+                </span>
+              </div>
+            }
+          </label>
+
+          <label class="form-control w-full float-left">
+            <div class="label">
+              <span class="label-text font-semibold">
+                <i class="fas fa-user mr-2 text-purple-600"></i>
+                Apellido
+              </span>
+            </div>
+            <input
+              class="input input-bordered w-full focus:input-primary focus:border-purple-600 transition-all placeholder:opacity-50"
+              type="text"
+              placeholder="Introduzca su apellido"
+              formControlName="last_name"
+            />
+            @if (form.controls.last_name.touched && form.controls.last_name.invalid) {
+              <div class="label">
+                <span class="label-text-alt text-error mt-[4px]">
+                  <i class="fas fa-exclamation-triangle mr-1"></i>
+                  Mínimo 2 caracteres
+                </span>
+              </div>
+            }
+          </label>
+        </div>
+
+        <!-- Email -->
+        <label class="form-control w-full float-left">
+          <div class="label">
+            <span class="label-text font-semibold">
+              <i class="fas fa-envelope mr-2 text-purple-600"></i>
+              Correo Electrónico
+            </span>
+          </div>
+          <input
+            class="input input-bordered w-full focus:input-primary focus:border-purple-600 transition-all placeholder:opacity-50"
+            type="email"
+            placeholder="introduzca su correo electrónico"
+            formControlName="email"
+          />
+          @if (form.controls.email.touched && form.controls.email.invalid) {
+            <div class="label">
+              <span class="label-text-alt text-error mt-[4px]">
+                <i class="fas fa-exclamation-triangle mr-1"></i>
+                Se requiere un correo válido
+              </span>
+            </div>
+          }
+        </label>
+
+        <!-- Contraseña -->
+        <label class="form-control w-full float-left">
+          <div class="label">
+            <span class="label-text font-semibold">
+              <i class="fas fa-lock mr-2 text-purple-600"></i>
+              Contraseña
+            </span>
+          </div>
+          <input
+            class="input input-bordered w-full focus:input-primary focus:border-purple-600 transition-all placeholder:opacity-50"
+            type="password"
+            placeholder="••••••••"
+            formControlName="password"
+          />
+          @if (form.controls.password.touched && form.controls.password.invalid) {
+            <div class="label">
+              <span class="label-text-alt text-error mt-[4px]">
+                <i class="fas fa-exclamation-triangle mr-1"></i>
+                Mínimo 6 caracteres
+              </span>
+            </div>
+          }
+        </label>
+
+        <!-- Teléfono -->
+        <label class="form-control w-full float-left">
+          <div class="label">
+            <span class="label-text font-semibold">
+              <i class="fas fa-phone mr-2 text-purple-600"></i>
+              Teléfono (RD)
+            </span>
+          </div>
+          <input
+            class="input input-bordered w-full focus:input-primary focus:border-purple-600 transition-all placeholder:opacity-50"
+            type="tel"
+            formControlName="phone"
+            placeholder="(XXX) XXX-XXXX"
+            (input)="onPhoneInput($event)"
+            inputmode="numeric"
+            autocomplete="tel"
+          />
+          @if (form.controls.phone.touched && form.controls.phone.invalid) {
+            <div class="label">
+              <span class="label-text-alt text-error mt-[4px]">
+                <i class="fas fa-exclamation-triangle mr-1"></i>
+                Usa el formato (000) 000-0000
+              </span>
+            </div>
+          } @else {
+            <div class="label">
+              <span class="label-text-alt opacity-60 ">
+                <i class="fas fa-info-circle mr-1"></i>
+                Solo números con el formato de Rep. Dom.
+              </span>
+            </div>
+          }
+        </label>
+
+        <!-- Submit Button -->
+        <button
+          class="btn btn-primary w-full bg-purple-600 border-purple-600 hover:bg-purple-700 hover:border-purple-700 text-white shadow-lg mt-6"
+          type="submit"
+          [disabled]="loading() || form.invalid"
+        >
+          @if (loading()) {
+            <span class="loading loading-spinner"></span>
+          } @else {
+            <i class="fas fa-user-check mr-2"></i>
+          }
+          <span>Crear cuenta</span>
+        </button>
+
+        <!-- Divider -->
+        <div class="divider text-sm opacity-60">O</div>
+
+        <!-- Login Link -->
+        <div class="text-center p-4 bg-base-200 rounded-lg">
+          <p class="text-sm text-base-content/80">
+            ¿Ya tienes una cuenta?
+            <a class="link link-primary font-semibold hover:text-purple-700" routerLink="/login">
+              Inicia sesión aquí
+            </a>
+          </p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+<!-- Sección de Nuestro Equipo -->
+<section id="equipo" class="py-16 px-4 lg:px-16 bg-base-100">
+  <div class="container mx-auto max-w-7xl">
+
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <h2 class="text-4xl lg:text-5xl font-bold mb-4 bg-gradient-to-r from-stone-600 to-stone-800 bg-clip-text text-transparent">
+        Nuestro Equipo
+      </h2>
+      <p class="text-lg text-base-content/70 max-w-2xl mx-auto">
+        Profesionales dedicados a brindarte la mejor experiencia
+      </p>
+    </div>
+
+    <!-- Grid de 4 columnas -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+
+      @for (employee of employees(); track employee.id) {
+        <div class="text-center group">
+          <div class="relative inline-block mb-6">
+            <div class="avatar">
+              <div class="w-40 rounded-full ring ring-stone-600 ring-offset-base-100 ring-offset-4 group-hover:ring-stone-800 transition-all duration-300">
+                <img [src]="imgUrl(employee.image_url)" alt="{{employee.first_name}}-{{employee.last_name}}" />
+              </div>
+            </div>
+            <div class="absolute -bottom-2 -right-2 w-10 h-10 bg-stone-600 rounded-full flex items-center justify-center shadow-lg">
+              <i class="fas fa-spa text-white"></i>
+            </div>
+          </div>
+          <h3 class="text-xl font-bold text-base-content mb-1">{{ employee.first_name }}  {{ employee.last_name }}</h3>
+          <p class="text-stone-600 font-medium">{{ employee.position }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</section>

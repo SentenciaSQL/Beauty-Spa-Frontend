@@ -1,0 +1,37 @@
+<!-- Sección de Precios - Tabla Simple -->
+<section id="precios" class="py-12 px-4 lg:px-12 bg-gradient-to-r from-stone-600 to-stone-800">
+  <div class="container mx-auto max-w-6xl">
+
+    <h2 class="text-4xl font-bold text-white text-center mb-8">Lista de Precios</h2>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+      <!-- Imagen -->
+      <div class="lg:col-span-1">
+        <img
+          ngSrc="/images/images.png"
+          alt="Spa"
+          class="w-full h-full rounded-xl shadow-xl object-cover min-h-[250px]"
+          height="225" width="225"/>
+      </div>
+
+      <!-- Servicios -->
+      <div class="lg:col-span-2 bg-white/10 backdrop-blur rounded-xl p-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          @for (service of services(); track service.id) {
+            <div class="flex justify-between items-center bg-white/5 hover:bg-white/10 p-3 rounded-lg transition-colors">
+              <span class="text-white text-sm font-medium">{{ service.name }}</span>
+              <span class="text-white font-bold ml-2">RD${{ service.price }}</span>
+            </div>
+          }
+        </div>
+
+        <a href="/book" class="btn bg-white text-stone-600 hover:bg-purple-50 border-0 w-full mt-6">
+          <i class="fas fa-calendar-check mr-2"></i>
+          Reservar Ahora
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>

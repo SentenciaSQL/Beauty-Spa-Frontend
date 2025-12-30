@@ -40,4 +40,8 @@ export class PublicApi {
   services(): Observable<PaginatedResponse<ServiceItem>> {
     return this.http.get<PaginatedResponse<ServiceItem>>(`${this.baseUrl}/public/services`);
   }
+
+  gallery(): Observable<GalleryItem[]> {
+    return this.http.get<GalleryItem[]>(`${this.baseUrl}/public/gallery`);
+  }
 }

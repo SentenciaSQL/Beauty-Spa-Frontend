@@ -8,10 +8,11 @@
         </svg>
       </div>
       <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-        <li><a routerLink="/" class="text-base">Iniciosss</a></li>
+        <li><a routerLink="/" class="text-base">Inicio</a></li>
         <li><a routerLink="/services" class="text-base">Servicios</a></li>
+        <li><a routerLink="/about-us" class="text-base">Nosotros</a></li>
         <li><a href="#tratamientos" class="text-base">Tratamientos</a></li>
-        <li><a href="#galeria" class="text-base">Galería</a></li>
+        <li><a routerLink="/gallery" class="text-base">Galería</a></li>
         <li><a href="#contacto" class="text-base">Contacto</a></li>
         @if (!isLoggedIn()) {
           <li><a (click)="makeAnAppointment()" class="text-base">Reservar Cita</a></li>
@@ -32,8 +33,9 @@
     <ul class="menu menu-horizontal px-1 text-base">
       <li><a routerLink="/" routerLinkActive="text-stone-600" class="hover:text-stone-600">Inicio</a></li>
       <li><a routerLink="/services" routerLinkActive="text-stone-600" class="hover:text-stone-600">Servicios</a></li>
+      <li><a routerLink="/about-us" class="hover:text-stone-600">Nosotros</a></li>
       <li><a href="#tratamientos" class="hover:text-stone-600">Tratamientos</a></li>
-      <li><a href="#galeria" class="hover:text-stone-600">Galería</a></li>
+      <li><a routerLink="/gallery" class="hover:text-stone-600">Galería</a></li>
       <li><a href="#contacto" class="hover:text-stone-600">Contacto</a></li>
     </ul>
   </div>

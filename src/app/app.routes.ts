@@ -15,6 +15,8 @@ export const routes: Routes = [
       { path: 'forgot-password', loadComponent: () => import('./features/client/pages/forgot-password/forgot-password.page').then(m => m.ForgotPasswordPage) },
       { path: 'reset-password', loadComponent: () => import('./features/client/pages/reset-password/reset-password.page').then(m => m.ResetPasswordPage) },
       { path: 'services', loadComponent: () => import('./features/client/pages/services/services.page').then(m => m.ServicesPage) },
+      { path: 'gallery', loadComponent: () => import('./features/client/pages/gallery/gallery.page').then(m => m.GalleryPage) },
+      { path: 'about-us', loadComponent: () => import('./features/client/pages/about-us/about-us.page').then(m => m.AboutUsPage) },
 
       {
         path: 'appointments',
